@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "builds": [{ "src": "src/index.js", "use": "@now/node-server" }],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/users/me",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/users",
+      "dest": "/server.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/users/login",
+      "dest": "/server.js",
+      "methods": ["POST"]
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "DATABASE_URL"
+  }
+}
