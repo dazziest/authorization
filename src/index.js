@@ -7,7 +7,7 @@ import routes from './routes';
 import models, { sequelize } from './models';
 import createUsersWithMessages from './utils/dataseed';
 
-const eraseDatabaseOnSync = false;
+const eraseDatabaseOnSync = true;
 
 const port = process.env.PORT;
 const app = express();
@@ -17,6 +17,17 @@ app.use(cors());
 app.use(express.json());
 //Parses the text as URL encoded data (which is how browsers tend to send form data from regular forms set to POST) and exposes the resulting object (containing the keys and values) on req.body
 app.use(express.urlencoded({ extended: true }));
+
+app.use(async (req, res, next) => {
+  req.context = {
+    models,
+  };
+  next();
+});
+
+app.get('/', (req, res) => {
+  return res.status(200).send({'message': 'Wew! Congratulations! Your first endpoint is working'});
+});
 
 app.use('/session', routes.session);
 
